@@ -178,10 +178,10 @@ DEFINE QUERY brw2 FOR
 DEFINE BROWSE brw
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _DISPLAY-FIELDS brw C-Win _FREEFORM
   QUERY brw NO-LOCK DISPLAY
-      tt-bills.BillNo FORMAT ">>>>>>>>>9":U
+      tt-bills.BillNo FORMAT "x(20)":U WIDTH 10
     tt-bills.bilDate FORMAT "99-99-9999":U WIDTH 10
-    tt-areas.descrip COLUMN-LABEL "Area" FORMAT "x(30)":U
-    tt-bills.cusName COLUMN-LABEL "Customer" FORMAT "x(60)":U
+    tt-areas.descrip COLUMN-LABEL "Area" FORMAT "x(30)":U WIDTH 25
+    tt-bills.cusName COLUMN-LABEL "Customer" FORMAT "x(60)":U WIDTH 35
     tt-bills.tol COLUMN-LABEL "Bill Total" FORMAT ">,>>>,>>>,>>9.99":U
              WIDTH 16
     tt-bills.paidAmount COLUMN-LABEL "Paid" FORMAT ">>>,>>>,>>9.99":U

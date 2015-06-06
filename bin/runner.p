@@ -1,4 +1,4 @@
-IF TODAY > 04/01/2014 THEN
+IF TODAY > 12/31/2015 THEN
 DO:
     MESSAGE "Your activation period is expired." SKIP
         "Please contact System Administrator to activate."
@@ -8,6 +8,7 @@ END.
 ELSE
 DO:
     PROPATH = "E:\ICS\bin," + PROPATH.
+    PROPATH = REPLACE(PROPATH,"E:\ICS_Vendol\bin,","").
     CONNECT -db E:\ICS\db\ics -1 NO-ERROR.
     IF ERROR-STATUS:ERROR THEN
     DO:

@@ -17,6 +17,7 @@ DEFINE VARIABLE tmpID AS INTEGER     NO-UNDO INIT 1.
 DEFINE VARIABLE tmpCash AS DECIMAL     NO-UNDO .
 DEFINE VARIABLE tmpCheque AS DECIMAL     NO-UNDO .
 DEFINE VARIABLE tmpCredit AS DECIMAL     NO-UNDO .
+DEFINE VARIABLE tmpVarience AS DECIMAL     NO-UNDO .
 DEFINE VARIABLE tmpGR AS DECIMAL     NO-UNDO .
 DEFINE VARIABLE tmpDmg AS DECIMAL     NO-UNDO .
 DEFINE VARIABLE tmpExp AS DECIMAL     NO-UNDO .
@@ -29,10 +30,11 @@ DEFINE VARIABLE FilterTo AS CHAR     NO-UNDO .
 DEFINE TEMP-TABLE tt-dailyReport
     FIELD ID        AS INT     
     FIELD bill#        AS INT     
-    FIELD BillNo    AS INT                 
+    FIELD BillNo    AS CHAR                 
     FIELD Customer  AS CHAR                 
     FIELD TolSale   AS DECIMAL                 
     FIELD TolValue  AS DECIMAL                 
+    FIELD Varience  AS DECIMAL                 
     FIELD Ex        AS DECIMAL                 
     FIELD Dmg       AS DECIMAL                 
     FIELD Discount  AS DECIMAL                 
@@ -64,7 +66,7 @@ DEFINE TEMP-TABLE tt-dailyReport
 &Scoped-define INTERNAL-TABLES tt-dailyReport
 
 /* Definitions for BROWSE brw                                           */
-&Scoped-define FIELDS-IN-QUERY-brw /* ID */ BillNo Customer TolSale Ex Dmg DiscountAmount Gr FIsu Cash Cheque Credit Unpaid /* itmName */ /* Weight */ /* /* PriceP */ */ /* BSC */ /* BSP */ /* LDC */ /* LDP */ /* ULC */ /* ULP */   
+&Scoped-define FIELDS-IN-QUERY-brw /* ID */ BillNo Customer TolSale Varience Ex Dmg DiscountAmount Gr FIsu Cash Cheque Credit Unpaid /* itmName */ /* Weight */ /* /* PriceP */ */ /* BSC */ /* BSP */ /* LDC */ /* LDP */ /* ULC */ /* ULP */   
 &Scoped-define ENABLED-FIELDS-IN-QUERY-brw   
 &Scoped-define SELF-NAME brw
 &Scoped-define QUERY-STRING-brw FOR EACH tt-dailyReport BY BillNo
@@ -78,13 +80,13 @@ DEFINE TEMP-TABLE tt-dailyReport
     ~{&OPEN-QUERY-brw}
 
 /* Standard List Definitions                                            */
-&Scoped-Define ENABLED-OBJECTS RECT-1 RECT-4 filTotal filTotalFissu ~
-filTotalCash radTimePeriod cmbVeh btnView filTotalDisc filTotalExp ~
-filTotalCredit filValue filTotalDam btnPrint filTotalCheque filToPay ~
-filTotalGr brw 
+&Scoped-Define ENABLED-OBJECTS filTotal filTotalFissu filTotalCash RECT-1 ~
+RECT-4 radTimePeriod cmbVeh btnView filTotalDisc filTotalExp filTotalCredit ~
+filValue filTotalDam filTotalCheque btnPrint filToPay filTotalGr ~
+filTotalVarience brw 
 &Scoped-Define DISPLAYED-OBJECTS filTotal filTotalFissu filTotalCash ~
 radTimePeriod cmbVeh filTotalDisc filTotalExp filTotalCredit filValue ~
-filTotalDam filTotalCheque filToPay filTotalGr 
+filTotalDam filTotalCheque filToPay filTotalGr filTotalVarience 
 
 /* Custom List Definitions                                              */
 /* List-1,List-2,List-3,List-4,List-5,List-6                            */
@@ -182,6 +184,12 @@ DEFINE VARIABLE filTotalGr AS DECIMAL FORMAT ">>>,>>>,>>9.99":U INITIAL 0
      SIZE 16 BY .88
      BGCOLOR 0 FGCOLOR 14  NO-UNDO.
 
+DEFINE VARIABLE filTotalVarience AS DECIMAL FORMAT "->>,>>>,>>9.99":U INITIAL 0 
+     LABEL "Varience" 
+     VIEW-AS FILL-IN 
+     SIZE 16 BY .88
+     BGCOLOR 15 FGCOLOR 12  NO-UNDO.
+
 DEFINE VARIABLE filValue AS DECIMAL FORMAT "->>>,>>>,>>9.99":U INITIAL 0 
      LABEL "Tol value" 
      VIEW-AS FILL-IN 
@@ -216,17 +224,18 @@ DEFINE BROWSE brw
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _DISPLAY-FIELDS brw C-Win _FREEFORM
   QUERY brw DISPLAY
       /*       ID       FORMAT ">>9" LABEL "No." */
-    BillNo   FORMAT ">99999"  
-    Customer FORMAT "X(50)":U
+    BillNo   FORMAT "X(20)":U WIDTH 8  
+    Customer FORMAT "X(50)":U WIDTH 35
     TolSale  FORMAT "->,>>>,>>9.99" LABEL "Total Sale"
+    Varience FORMAT "->,>>9.99" LABEL "Varience" WIDTH 8
     Ex       FORMAT ">>,>>9.99"  LABEL "Expiry"
     Dmg      FORMAT ">>,>>9.99"  LABEL "Damage"
     DiscountAmount FORMAT ">>,>>9.99" LABEL "Discount"
         Gr       FORMAT ">>,>>9.99" LABEL "G/Return"
     FIsu     FORMAT ">>,>>9.99" LABEL "F/Issue"
-        Cash     FORMAT ">,>>>,>>9.99"
-    Cheque   FORMAT ">,>>>,>>9.99"
-    Credit   FORMAT ">,>>>,>>9.99" LABEL "Debit"
+        Cash     FORMAT ">,>>>,>>9.99" WIDTH 8
+    Cheque   FORMAT ">,>>>,>>9.99" WIDTH 8
+    Credit   FORMAT ">,>>>,>>9.99" LABEL "Debit" WIDTH 8
         Unpaid   FORMAT ">,>>>,>>9.99" LABEL "Credit" COLUMN-FGCOLOR 12
 
 /* itmName FORMAT "X(38)":U LABEL "Item Name" */
@@ -250,19 +259,20 @@ DEFINE BROWSE brw
 DEFINE FRAME DEFAULT-FRAME
      filTotal AT ROW 1.04 COL 73.29 COLON-ALIGNED WIDGET-ID 236
      filTotalFissu AT ROW 1.04 COL 97 COLON-ALIGNED WIDGET-ID 256
-     filTotalCash AT ROW 1.27 COL 126 COLON-ALIGNED WIDGET-ID 250
+     filTotalCash AT ROW 1.04 COL 126 COLON-ALIGNED WIDGET-ID 250
      radTimePeriod AT ROW 1.31 COL 37.57 NO-LABEL WIDGET-ID 264
      cmbVeh AT ROW 1.46 COL 6.86 COLON-ALIGNED WIDGET-ID 100
      btnView AT ROW 1.62 COL 50.57 WIDGET-ID 2
      filTotalDisc AT ROW 1.88 COL 73.29 COLON-ALIGNED WIDGET-ID 242
      filTotalExp AT ROW 1.88 COL 97 COLON-ALIGNED WIDGET-ID 238
-     filTotalCredit AT ROW 2.27 COL 126 COLON-ALIGNED WIDGET-ID 248
+     filTotalCredit AT ROW 1.88 COL 126 COLON-ALIGNED WIDGET-ID 248
      filValue AT ROW 2.73 COL 73.29 COLON-ALIGNED WIDGET-ID 278
      filTotalDam AT ROW 2.73 COL 97 COLON-ALIGNED WIDGET-ID 240
+     filTotalCheque AT ROW 2.73 COL 126 COLON-ALIGNED WIDGET-ID 246
      btnPrint AT ROW 2.85 COL 50.57 WIDGET-ID 234
-     filTotalCheque AT ROW 3.35 COL 126 COLON-ALIGNED WIDGET-ID 246
      filToPay AT ROW 3.54 COL 73.43 COLON-ALIGNED WIDGET-ID 280
      filTotalGr AT ROW 3.58 COL 97 COLON-ALIGNED WIDGET-ID 258
+     filTotalVarience AT ROW 3.58 COL 125.86 COLON-ALIGNED WIDGET-ID 282
      brw AT ROW 4.5 COL 1.43 WIDGET-ID 200
      "To:" VIEW-AS TEXT
           SIZE 3.14 BY .62 AT ROW 3.42 COL 5.57 WIDGET-ID 274
@@ -293,7 +303,7 @@ DEFINE FRAME DEFAULT-FRAME
 IF SESSION:DISPLAY-TYPE = "GUI":U THEN
   CREATE WINDOW C-Win ASSIGN
          HIDDEN             = YES
-         TITLE              = "Error"
+         TITLE              = "Billing Report"
          COLUMN             = 1.57
          ROW                = 1.23
          HEIGHT             = 26.54
@@ -325,7 +335,7 @@ ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
   VISIBLE,,RUN-PERSISTENT                                               */
 /* SETTINGS FOR FRAME DEFAULT-FRAME
    FRAME-NAME                                                           */
-/* BROWSE-TAB brw filTotalGr DEFAULT-FRAME */
+/* BROWSE-TAB brw filTotalVarience DEFAULT-FRAME */
 IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(C-Win)
 THEN C-Win:HIDDEN = no.
 
@@ -386,7 +396,7 @@ CREATE CONTROL-FRAME CtrlFrame-2 ASSIGN
 
 &Scoped-define SELF-NAME C-Win
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL C-Win C-Win
-ON END-ERROR OF C-Win /* Error */
+ON END-ERROR OF C-Win /* Billing Report */
 OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
   /* This case occurs when the user presses the "Esc" key.
      In a persistently run window, just ignore this.  If we did not, the
@@ -399,17 +409,11 @@ END.
 
 
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL C-Win C-Win
-ON WINDOW-CLOSE OF C-Win /* Error */
+ON WINDOW-CLOSE OF C-Win /* Billing Report */
 DO:
   /* This event will close the window and terminate the procedure.  */
-  MESSAGE "Conferm to close?" VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO UPDATE yn AS LOGICAL.
-    IF yn = YES THEN
-    DO:
       APPLY "CLOSE":U TO THIS-PROCEDURE.
       RETURN NO-APPLY.
-    END.
-    ELSE
-        RETURN NO-APPLY.
 END.
 
 /* _UIB-CODE-BLOCK-END */
@@ -457,7 +461,7 @@ DO:
             END CASE.
             
             PUT UNFORMAT "||" + period + "|||Vehical : " + veh + "||||By user : " + session_User SKIP. 
-            PUT UNFORMAT "NO|Bill No|Customer|Tol Sale|Expiries|Damages|Discount|GR|F/Issu|Cash|Cheques|Debit|Credits" SKIP. 
+            PUT UNFORMAT "NO|Bill No|Customer|Tol Sale|Varience|Expiries|Damages|Discount|GR|F/Issu|Cash|Cheques|Debit|Credits" SKIP. 
                 
             tempCount = 1.
         
@@ -466,6 +470,7 @@ DO:
                PUT UNFORMAT STRING( BillNo   ) + "|" .
                PUT UNFORMAT STRING( Customer ) + "|" .
                PUT UNFORMAT STRING( TolSale  ) + "|" .
+               PUT UNFORMAT STRING( Varience  ) + "|" .
                PUT UNFORMAT STRING( Ex       ) + "|".
                PUT UNFORMAT STRING( Dmg      ) + "|".
                PUT UNFORMAT STRING( Discount ) + "|".
@@ -480,6 +485,7 @@ DO:
             PUT UNFORMAT "~n".
             PUT UNFORMAT "||Total|"
                  + string( filTotal) + "|"
+                + string( filTotalVarience) + "|"
                  + string( filTotalExp) + "|"
                  + string( filTotalDam) + "|"
                  + string( filTotalDisc) + "|"
@@ -527,6 +533,7 @@ DO:
     filTotalFissu  = 0.
     filTotalGr     = 0.
     filToPay     = 0.
+    filTotalVarience = 0.
 
     tempDate = calendr:VALUE.
     tempDateTo = calendrTo:VALUE.
@@ -557,6 +564,7 @@ DO:
             filTotalGr     = 0.
             filValue       = 0.
             filToPay       = 0.
+            filTotalVarience = 0.
 
             FOR EACH tt-dailyReport.
                 filTotal        = filTotal       + tt-dailyReport.TolSale.
@@ -570,13 +578,14 @@ DO:
                 filTotalGr      = filTotalGr     + tt-dailyReport.Gr.
                 filTotalFissu   = filTotalFissu  + tt-dailyReport.FIsu.
                 filToPay   = filToPay  + tt-dailyReport.Unpaid.
+                filTotalVarience = filTotalVarience + tt-dailyReport.varience.
             END.
         END.
         ELSE MESSAGE "No records to show." VIEW-AS ALERT-BOX INFO BUTTONS OK.
 
         DISPLAY filToPay filTotal filValue filTotalDam filTotalExp filTotalDisc
             filTotalCash filTotalCredit filTotalCheque
-            filTotalGr filTotalFissu WITH FRAME {&FRAME-NAME}.
+            filTotalGr filTotalFissu filTotalVarience WITH FRAME {&FRAME-NAME}.
 
 
         {&SELF-NAME}:LABEL = "View".
@@ -779,7 +788,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -804,6 +813,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -834,7 +844,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -859,6 +869,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -897,7 +908,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -922,6 +933,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -952,7 +964,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -977,6 +989,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -1030,11 +1043,11 @@ PROCEDURE enable_UI :
   RUN control_load.
   DISPLAY filTotal filTotalFissu filTotalCash radTimePeriod cmbVeh filTotalDisc 
           filTotalExp filTotalCredit filValue filTotalDam filTotalCheque 
-          filToPay filTotalGr 
+          filToPay filTotalGr filTotalVarience 
       WITH FRAME DEFAULT-FRAME IN WINDOW C-Win.
-  ENABLE RECT-1 RECT-4 filTotal filTotalFissu filTotalCash radTimePeriod cmbVeh 
+  ENABLE filTotal filTotalFissu filTotalCash RECT-1 RECT-4 radTimePeriod cmbVeh 
          btnView filTotalDisc filTotalExp filTotalCredit filValue filTotalDam 
-         btnPrint filTotalCheque filToPay filTotalGr brw 
+         filTotalCheque btnPrint filToPay filTotalGr filTotalVarience brw 
       WITH FRAME DEFAULT-FRAME IN WINDOW C-Win.
   {&OPEN-BROWSERS-IN-QUERY-DEFAULT-FRAME}
   VIEW C-Win.
@@ -1062,7 +1075,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -1087,6 +1100,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -1117,7 +1131,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -1142,6 +1156,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -1190,7 +1205,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN
@@ -1215,6 +1230,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
         tt-dailyReport.Customer = bills.cusName + " - " + area.areaCode       .   
         tt-dailyReport.TolSale  = bills.tol            .   
         tt-dailyReport.TolValue = bills.tol + bills.discountedAmount         .   
+        tt-dailyReport.Varience = bills.varience         .   
         tt-dailyReport.Ex       = tmpExp               .
         tt-dailyReport.Dmg      = tmpDmg               .
         tt-dailyReport.Discount = bills.discountedAmount   .
@@ -1245,7 +1261,7 @@ EMPTY TEMP-TABLE tt-dailyReport.
             FIND FIRST itms WHERE itms.itmID = recipts.item#.
                 tmpUnitPrice = itms.unitPriceS.
             RELEASE itms.
-            tmpGR = tmpGR + (recipts.goodreturnP * tmpUnitPrice).
+            tmpGR = tmpGR + (recipts.GRRD * tmpUnitPrice).
             tmpDmg = tmpDmg + (recipts.damP * tmpUnitPrice).
             tmpExp = tmpExp + (recipts.expP * tmpUnitPrice).
             IF recipts.ItmDiscount = 100.00 THEN

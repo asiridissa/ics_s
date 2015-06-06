@@ -1,7 +1,74 @@
 No|Product|Weight|Van C|Van P|Stock C|Stock P|Total P|Buying Price|Amount|Selling Price|Amount|
-1|Goold Marie - 02/24/2013|.08|
-2|Chocolate Cream - 08/14/2013|.1|
-3|Cream Cracker - 02/24/2013|.125|
-4|Cream Cracker - 02/24/2013|.19|
-5|Cream Cracker - 06/29/2013|.33|
+1|Free Line|0|
+2|Goold Marie - 02/24/2013|.08|
+3|Chocolate Cream - 08/14/2013|.1|
+4|Cream Cracker - 02/24/2013|.125|
+5|Cream Cracker - 02/24/2013|.19|
+6|Cream Cracker - 06/29/2013|.33|
+7|Cream Cracker - 02/24/2013|.5|
+8|Lemon puff - 06/29/2013|.1|
+9|Lemon Puff - 05/13/2013|.2|
+10|Chocolate Puff - 12/26/2013|.1|
+11|Chocolate Puff - 12/26/2013|.2|
+12|Sorties - 02/24/2013|.065|
+13|Nice - 07/03/2013|.1|
+14|Hawaiian Cookies - 06/29/2013|.1|
+15|Hawaiian Cookies - 06/29/2013|.2|
+16|Bran Cracker - 06/29/2013|.14|
+17|Bran Cracker - 06/29/2013|.21|
+18|Cheesebits - 04/19/2013|.025|
+19|Cheese Bits - 05/13/2013|.08|
+20|Cheese Bits - 05/13/2013|.17|
+21|Cheese Bits - 05/13/2013|.245|
+22|Krisco - 07/03/2013|.17|
+23|Krisco - 05/13/2013|.215|
+24|Chocolate Cream - 02/24/2013|.5|
+25|Chocolate Cream - 12/26/2013|.25|
+26|Custard Cream - 02/24/2013|.1|
+27|Orange Cream - 03/31/2013|.1|
+28|Chickbit - 05/13/2013|.28|
+29|Chickbits - 06/29/2013|.08|
+30|Chickbit - 05/13/2013|.03|
+31|Chickbits - 02/24/2013|.17|
+32|Gingernut - 06/29/2013|.08|
+33|Gingernut - 06/29/2013|.24|
+34|Gingernut - 12/26/2013|.37|
+35|Millk Short Cake - 06/29/2013|.08|
+36|Snackers-Cheese & Chille - 06/29/2013|.04|
+37|Snackers- Masala - 06/29/2013|.04|
+38|Snackers- Spicy - 07/03/2013|.04|
+39|Custard Cream - 07/03/2013|.5|
+40|Orenge Cream - 07/03/2013|.5|
+41|Nice - 07/03/2013|.38|
+42|Sorties - 07/03/2013|.325|
+43|Gift Selection - 04/02/2013|.4|
+44|Kisco Bite - 07/03/2013|.03|
+45|Light Marie - 02/24/2013|.07|
+46|Light Marie - 02/24/2013|.28|
+47|Classic Bis Asst - 05/13/2013|.5|
+48|Goold Marie - 07/03/2013|.32|
+49|Gem - 07/03/2013|.1|
+50|Wafers-chocolate - 07/31/2013|.1|
+51|Waferes Chocolat - 11/11/2013|.25|
+52|Wafers-vanila - 07/31/2013|.1|
+53|Wefers vanila - 11/11/2013|.25|
+54|Spicy Cracker - 03/30/2013|.075|
+55|Spicy Cracker - 03/30/2013|.15|
+56|Chocolate Cream Marie - 02/24/2013|.065|
+57|Double Cream - Strawbery - 12/26/2013|.11|
+58|Double Cream- Chocolate - 12/26/2013|.11|
+59|Nice - 01/23/2014|.29|
+60|Nice - 01/23/2014|.435|
+61|White Chocolate Puff - 03/24/2014|.2|
+62|Lemon Puff - 07/14/2014|.4|
+63|Onion Bitsy - 07/14/2014|.03|
+64|Chocolate Cream - 04/02/2015|.4|
+65|Orange Cream - 04/02/2015|.4|
+66|Custard Cream - 04/02/2015|.4|
+67|Wafers-chocolate - 04/02/2015|.4|
+68|Inguru Biscuit - 04/02/2015|.08|
+69|Chocolate Marie - 04/02/2015|.08|
+70|Biscuit Assortment - 04/02/2015|.5|
+71|Milk short cake - 04/02/2015|.185|
+72|Inguru Biscuit - 04/02/2015|.24|
 |Total|
