@@ -1,7 +1,8 @@
-||Month : 6 - 2015|||Vehical : All Vehicals||||By user : asiri
+||Month : 11 - 2015|||Vehical : All Vehicals||||By user : admin
 NO|Bill No|Customer|Tol Sale|Varience|Expiries|Damages|Discount|GR|F/Issu|Cash|Cheques|Debit|Credits
-1|1|Uhaga - 002|10000|10000|0|0|0|0|0|0|0|0|10000|
-2|2|Uhaga - 002|1420.05|0|0|0|34.4|0|34.4|0|0|0|1420.05|
+1|10|STARTEL COM - OTH|262.5|0|0|0|0|0|0|0|0|0|262.5|
+2|20|Shaheni st - 2MO|747.5|0|0|0|0|0|0|0|0|0|747.5|
+3|30|STARTEL COM - OTH|347.5|0|0|0|0|0|0|0|0|0|347.5|
 
-||Total|11420.05|10000|0|0|34.4|0|34.4|0|0|0|11420.05
-||Value|11454.45
+||Total|1357.5|0|0|0|0|0|0|0|0|0|1357.5
+||Value|1357.5
