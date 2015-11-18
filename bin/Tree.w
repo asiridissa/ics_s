@@ -499,23 +499,24 @@ chCtrlFrame:TreeView:ImageList = chCtrlFrame-3:ImageList.
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Recipts",4,"DaySale","Loading Unloading",4,5) tmpNode:expanded = TRUE .
     
         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Payments","Payments",2) tmpNode:expanded = TRUE .
-         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cash","Cash",4,5) tmpNode:expanded = TRUE .
-         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cheques","Cheques",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cash","Cash",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cheques","Cheques",4,5) tmpNode:expanded = TRUE .
 
 /*         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"DayEnd","Day End",1) tmpNode:expanded = TRUE .                 */
 /*          ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("DayEnd",4,"StartDayEnd","Start Day End",4,5) tmpNode:expanded = TRUE . */
 /*          ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("DayEnd",4,"DayEndLog","Day End Log",4,5) tmpNode:expanded = TRUE .     */
     
-/*         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Expenses","Expenses",2) tmpNode:expanded = FALSE .                */
-/*             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expense",4,"ExpenseType","Expense Type",4,5) tmpNode:expanded = TRUE . */
-/*             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expense",4,"Expense","Expenses",4,5) tmpNode:expanded = TRUE .         */
-/*                                                                                                                             */
+        ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Expenses","Expenses",2) tmpNode:expanded = FALSE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expenses",4,"ExpenseType","Expense Type",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expenses",4,"Expense","Expenses",4,5) tmpNode:expanded = TRUE .
+
         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"InfoCenter","Info Center",2) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"CollectionReport","Collection Report",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"FinancialState","Transaction Report",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"SpotStockTest","Spot Stock Test",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"DailySummary","Daily Bills Summary",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"BillingReport","Billing Report",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"Summary","Summary",4,5) tmpNode:expanded = TRUE .
       END.
     ELSE
     DO:
@@ -534,13 +535,13 @@ chCtrlFrame:TreeView:ImageList = chCtrlFrame-3:ImageList.
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Recipts",4,"DaySale","Loading Unloading",4,5) tmpNode:expanded = TRUE .
     
         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Payments","Payments",2) tmpNode:expanded = TRUE .
-         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cash","Cash",4,5) tmpNode:expanded = TRUE .
-         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cheques","Cheques",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cash","Cash",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Payments",4,"Cheques","Cheques",4,5) tmpNode:expanded = TRUE .
 
-/*         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Expenses","Expenses",2) tmpNode:expanded = FALSE .                */
-/*             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expense",4,"ExpenseType","Expense Type",4,5) tmpNode:expanded = TRUE . */
-/*             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expense",4,"Expense","Expenses",4,5) tmpNode:expanded = TRUE .         */
-/*                                                                                                                             */
+        ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Expenses","Expenses",2) tmpNode:expanded = FALSE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expenses",4,"ExpenseType","Expense Type",4,5) tmpNode:expanded = TRUE .
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Expenses",4,"Expense","Expenses",4,5) tmpNode:expanded = TRUE .
+
     
         ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"InfoCenter","Info Center",2) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"CollectionReport","Collection Report",4,5) tmpNode:expanded = TRUE .
@@ -548,7 +549,7 @@ chCtrlFrame:TreeView:ImageList = chCtrlFrame-3:ImageList.
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"SpotStockTest","Spot Stock Test",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"DailySummary","Daily Bills Summary",4,5) tmpNode:expanded = TRUE .
             ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"BillingReport","Billing Report",4,5) tmpNode:expanded = TRUE .
-        
+            ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("InfoCenter",4,"Summary","Summary",4,5) tmpNode:expanded = TRUE .
     END.
 
     ASSIGN tmpNode = mvarTreeMenu:nodes:ADD("Home",4,"Exit","Exit",6) tmpNode:expanded = TRUE .

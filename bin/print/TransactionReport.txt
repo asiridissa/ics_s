@@ -1,7 +1,8 @@
-||Month : 11 - 2015|||Vehical : All Vehicals||||By user : admin
+||Month : 11 - 2015|||Vehical : All Vehicals||||By user : asiri
 NO|Bill No|Customer|Tol Sale|Varience|Expiries|Damages|Discount|GR|F/Issu|Cash|Cheques|Debit|Credits
-1|30|STARTEL COM - OTH|347.5|0|0|0|0|0|0|100|247.5|0|0|
-2|10|STARTEL COM - OTH|262.5|0|0|0|0|0|0|0|262.5|0|0|
+1|20|STARTEL COM - OTH|315|0|0|0|0|0|0|315|0|0|0|
+2|30|STARTEL COM - OTH|3281|-.25|0|0|0|0|0|281|737.5|0|2262.5|
+3|10|STARTEL COM - OTH|262.5|0|0|0|0|0|0|0|262.5|0|0|
 
-||Total|610|0|0|0|0|0|0|100|510|0|0|
+||Total|3858.5|-.25|0|0|0|0|0|596|1000|0|2262.5|
 ||Upto Date Total|0|0|0|0|0|0|0|0|0|0|0

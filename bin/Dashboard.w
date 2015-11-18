@@ -9,6 +9,7 @@ CREATE WIDGET-POOL.
 DEFINE SHARED VARIABLE session_User AS CHARACTER.
 
 DEFINE VARIABLE calendr AS COM-HANDLE   NO-UNDO.
+DEFINE VARIABLE calendrTo AS COM-HANDLE   NO-UNDO.
 
 DEFINE VARIABLE fromDate AS DATE        NO-UNDO.
 DEFINE VARIABLE toDate AS DATE        NO-UNDO.
@@ -57,7 +58,7 @@ DEFINE TEMP-TABLE tt-payments
 
 DEFINE TEMP-TABLE tt-db
     FIELD DATE            AS DATE                 
-    FIELD Area            AS CHAR                 
+/*     FIELD Area            AS CHAR */
     FIELD Vehicle            AS CHAR                 
     FIELD Expiery         AS DECIMAL                 
     FIELD Damage          AS DECIMAL                 
@@ -96,7 +97,7 @@ DEFINE TEMP-TABLE tt-db
 &Scoped-define INTERNAL-TABLES tt-db
 
 /* Definitions for BROWSE brw                                           */
-&Scoped-define FIELDS-IN-QUERY-brw DATE Vehicle Area Expiery Damage Free GR Varience Tol Cash Credit Cheque Collection Expenses CashIn RealizedCheques Income /* Unpaid */   
+&Scoped-define FIELDS-IN-QUERY-brw DATE Vehicle /* Area */ Expiery Damage Free GR Varience Tol Cash Credit Cheque Collection Expenses CashIn RealizedCheques Income /* Unpaid */   
 &Scoped-define ENABLED-FIELDS-IN-QUERY-brw   
 &Scoped-define SELF-NAME brw
 &Scoped-define QUERY-STRING-brw FOR EACH tt-db BY DATE
@@ -131,6 +132,8 @@ DEFINE VAR C-Win AS WIDGET-HANDLE NO-UNDO.
 /* Definitions of handles for OCX Containers                            */
 DEFINE VARIABLE CtrlFrame AS WIDGET-HANDLE NO-UNDO.
 DEFINE VARIABLE chCtrlFrame AS COMPONENT-HANDLE NO-UNDO.
+DEFINE VARIABLE CtrlFrame-2 AS WIDGET-HANDLE NO-UNDO.
+DEFINE VARIABLE chCtrlFrame-2 AS COMPONENT-HANDLE NO-UNDO.
 
 /* Definitions of the field level widgets                               */
 DEFINE BUTTON btnView 
@@ -177,9 +180,9 @@ DEFINE QUERY brw FOR
 DEFINE BROWSE brw
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _DISPLAY-FIELDS brw C-Win _FREEFORM
   QUERY brw DISPLAY
-      DATE                                  width 10 
+      DATE              FORMAT "99-99-9999"                 width 10 
         Vehicle         FORMAT "X(20)"        width 8 
-        Area            FORMAT "X(20)"        width 10 
+/*         Area            FORMAT "X(20)"        width 10 */
         Expiery         FORMAT ">,>>>,>>9.99" width 10 
         Damage          FORMAT ">,>>>,>>9.99" width 10 
         Free            FORMAT ">,>>>,>>9.99" width 10 
@@ -216,6 +219,8 @@ DEFINE FRAME charDEFAULT-FRAME
      filReceipts AT ROW 3.69 COL 84 COLON-ALIGNED WIDGET-ID 268
      filPayments AT ROW 3.69 COL 107 COLON-ALIGNED WIDGET-ID 270
      brw AT ROW 5.85 COL 1.43 WIDGET-ID 200
+     "To:" VIEW-AS TEXT
+          SIZE 2.57 BY .62 AT ROW 3.77 COL 5.43 WIDGET-ID 274
      "From:" VIEW-AS TEXT
           SIZE 5 BY .62 AT ROW 2.5 COL 3.43 WIDGET-ID 254
     WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
@@ -243,7 +248,7 @@ IF SESSION:DISPLAY-TYPE = "GUI":U THEN
          HIDDEN             = YES
          TITLE              = "Summary"
          COLUMN             = 1.57
-         ROW                = 1.15
+         ROW                = 1
          HEIGHT             = 26.5
          WIDTH              = 143.86
          MAX-HEIGHT         = 26.54
@@ -310,8 +315,20 @@ CREATE CONTROL-FRAME CtrlFrame ASSIGN
        WIDGET-ID       = 232
        HIDDEN          = no
        SENSITIVE       = yes.
+
+CREATE CONTROL-FRAME CtrlFrame-2 ASSIGN
+       FRAME           = FRAME charDEFAULT-FRAME:HANDLE
+       ROW             = 3.69
+       COLUMN          = 8.86
+       HEIGHT          = .81
+       WIDTH           = 23.72
+       WIDGET-ID       = 272
+       HIDDEN          = no
+       SENSITIVE       = yes.
 /* CtrlFrame OCXINFO:CREATE-CONTROL from: {20DD1B9E-87C4-11D1-8BE3-0000F8754DA1} type: DTPicker */
+/* CtrlFrame-2 OCXINFO:CREATE-CONTROL from: {20DD1B9E-87C4-11D1-8BE3-0000F8754DA1} type: DTPicker */
       CtrlFrame:MOVE-AFTER(filVeh:HANDLE IN FRAME charDEFAULT-FRAME).
+      CtrlFrame-2:MOVE-AFTER(CtrlFrame).
 
 &ENDIF
 
@@ -369,9 +386,10 @@ DO:
    DEFINE VARIABLE cnt AS INTEGER     NO-UNDO.
 
     fromDate = calendr:VALUE.
+    ToDate   = calendrTo:VALUE.
     RUN ttBindMonth.
-    RUN ttBindCommon.
-    RUN ttBindDB.
+/*     RUN ttBindCommon. */
+/*     RUN ttBindDB.     */
 
 /*     FOR EACH tt-dates BY tt-dates.DATE.                                                          */
 /*         tDATE = tt-dates.DATE.                                                                   */
@@ -431,6 +449,34 @@ END PROCEDURE.
 
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL CtrlFrame C-Win OCX.Click
 PROCEDURE CtrlFrame.DTPicker.Click .
+/* APPLY "CHOOSE":U TO btnView IN FRAME DEFAULT-FRAME. */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME CtrlFrame-2
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL CtrlFrame-2 C-Win OCX.Change
+PROCEDURE CtrlFrame-2.DTPicker.Change .
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  None required for OCX.
+  Notes:       
+------------------------------------------------------------------------------*/
+
+/* APPLY "CHOOSE":U TO btnView IN FRAME DEFAULT-FRAME. */
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL CtrlFrame-2 C-Win OCX.Click
+PROCEDURE CtrlFrame-2.DTPicker.Click .
 /* APPLY "CHOOSE":U TO btnView IN FRAME DEFAULT-FRAME. */
 
 END PROCEDURE.
@@ -678,6 +724,10 @@ DO ON ERROR   UNDO MAIN-BLOCK, LEAVE MAIN-BLOCK
   calendr:ENABLED = TRUE.
   calendr:VALUE = TODAY - 10.
 
+  calendrTo = chCtrlFrame-2:DTPicker.
+  calendrTo:ENABLED = TRUE.
+  calendrTo:VALUE = TODAY - 10.
+
   IF NOT THIS-PROCEDURE:PERSISTENT THEN
     WAIT-FOR CLOSE OF THIS-PROCEDURE.
 END.
@@ -712,6 +762,9 @@ DO:
     chCtrlFrame = CtrlFrame:COM-HANDLE
     UIB_S = chCtrlFrame:LoadControls( OCXFile, "CtrlFrame":U)
     CtrlFrame:NAME = "CtrlFrame":U
+    chCtrlFrame-2 = CtrlFrame-2:COM-HANDLE
+    UIB_S = chCtrlFrame-2:LoadControls( OCXFile, "CtrlFrame-2":U)
+    CtrlFrame-2:NAME = "CtrlFrame-2":U
   .
   RUN initialize-controls IN THIS-PROCEDURE NO-ERROR.
 END.
@@ -775,22 +828,22 @@ PROCEDURE ttBindCommon :
   Parameters:  <none>
   Notes:       
 ------------------------------------------------------------------------------*/
-    FOR EACH tt-bill.
-        FIND FIRST tt-area WHERE tt-area.Id = tt-bill.Area NO-ERROR.
-        IF NOT AVAILABLE tt-area THEN
-        DO:
-            FIND FIRST area WHERE area.ID = tt-bill.Area NO-ERROR.
-            IF AVAILABLE area THEN
-            DO:
-                CREATE tt-area.
-                   tt-area.Id              = area.ID         .
-                   tt-area.Code            = area.areaCode    .
-                   tt-area.Description     = area.descrip  .
-            END.
-
-            filArea = filArea + 1.
-        END.
-    END.
+/*     FOR EACH tt-bill.                                                */
+/*         FIND FIRST tt-area WHERE tt-area.Id = tt-bill.Area NO-ERROR. */
+/*         IF NOT AVAILABLE tt-area THEN                                */
+/*         DO:                                                          */
+/*             FIND FIRST area WHERE area.ID = tt-bill.Area NO-ERROR.   */
+/*             IF AVAILABLE area THEN                                   */
+/*             DO:                                                      */
+/*                 CREATE tt-area.                                      */
+/*                    tt-area.Id              = area.ID         .       */
+/*                    tt-area.Code            = area.areaCode    .      */
+/*                    tt-area.Description     = area.descrip  .         */
+/*             END.                                                     */
+/*                                                                      */
+/*             filArea = filArea + 1.                                   */
+/*         END.                                                         */
+/*     END.                                                             */
 
     FOR EACH tt-bill.
         FOR EACH recipts WHERE recipts.bill# = tt-bill.bill# NO-LOCK,
@@ -828,6 +881,69 @@ END PROCEDURE.
 /* _UIB-CODE-BLOCK-END */
 &ANALYZE-RESUME
 
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE ttBindCustom C-Win 
+PROCEDURE ttBindCustom :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+    FOR EACH bills WHERE bills.bilDate >= fromDate AND bills.bilDate <= toDate NO-LOCK,
+        EACH area WHERE area.ID = bills.areaCode NO-LOCK,
+        EACH vehical WHERE vehical.ID = bills.vehNo NO-LOCK.
+        CREATE tt-bill.
+           tt-bill.bill#     = bills.bill#.
+           tt-bill.Area      = bills.areaCode.
+           tt-bill.Date      = bills.bilDate     .
+           tt-bill.Tol       = bills.tol         .
+           tt-bill.Varience  = bills.varience    .
+           tt-bill.Vehicle   = bills.vehNo.
+
+       FIND FIRST tt-db WHERE tt-db.DATE = bills.bilDate AND tt-db.Vehicle = vehical.veh# 
+/*            AND tt-db.Area = area.areaCode */
+           NO-ERROR.
+       IF NOT AVAILABLE tt-db THEN
+       DO:
+           CREATE tt-db.
+            tt-db.DATE = bills.bilDate .
+            tt-db.Vehicle = vehical.veh# .
+/*             tt-db.Area = area.areaCode. */
+       END.
+
+       FIND FIRST tt-dates WHERE tt-dates.DATE = bills.bilDate NO-ERROR.
+       IF NOT AVAILABLE tt-dates THEN
+       DO:
+           CREATE tt-dates.
+               tt-dates.DATE = bills.bilDate.
+       END.
+
+       FIND FIRST tt-Veh WHERE tt-Veh.Id = bills.vehNo NO-ERROR.
+       IF NOT AVAILABLE tt-Veh THEN
+       DO:
+           CREATE tt-Veh.
+               tt-Veh.Id = vehical.ID.
+               tt-Veh.veh# = vehical.veh#.
+       END.
+    END.
+
+    FOR EACH tt-bill.
+        filBill = filBill + 1.
+    END.
+    FOR EACH tt-dates.
+        filDates = filDates + 1.
+    END.
+    FOR EACH tt-Veh.
+        filVeh = filVeh + 1.
+    END.
+
+    DISPLAY filBill filDates filVeh WITH FRAME {&FRAME-NAME}.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
 &ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE ttBindDB C-Win 
 PROCEDURE ttBindDB :
 /*------------------------------------------------------------------------------
@@ -838,7 +954,9 @@ PROCEDURE ttBindDB :
 
 FOR EACH tt-db.
     FOR EACH tt-bill WHERE tt-bill.DATE = tt-db.DATE,
-        EACH tt-area WHERE tt-area.Id = tt-bill.Area AND tt-area.CODE = tt-db.Area.
+        EACH tt-area WHERE tt-area.Id = tt-bill.Area 
+/*             AND tt-area.CODE = tt-db.Area */
+        .
         ACCUMULATE tt-bill.Tol (TOTAL).
         ACCUMULATE tt-bill.Varience (TOTAL).
     END.
@@ -856,7 +974,9 @@ FOR EACH tt-receipts,
     EACH tt-bill WHERE tt-bill.bill# = tt-receipts.bill#,
     EACH tt-area WHERE tt-area.Id = tt-bill.Area
     .
-    FIND FIRST tt-db WHERE tt-db.DATE = tt-bill.DATE AND tt-db.Area = tt-area.CODE NO-ERROR.
+    FIND FIRST tt-db WHERE tt-db.DATE = tt-bill.DATE 
+/*             AND tt-db.Area = tt-area.CODE */
+        NO-ERROR.
     IF AVAILABLE tt-db THEN
     DO:
         tt-db.Expiery = tt-db.Expiery + (tt-receipts.Expiery).
@@ -893,13 +1013,15 @@ PROCEDURE ttBindMonth :
            tt-bill.Varience  = bills.varience    .
            tt-bill.Vehicle   = bills.vehNo.
 
-       FIND FIRST tt-db WHERE tt-db.DATE = bills.bilDate AND tt-db.Vehicle = vehical.veh# AND tt-db.Area = area.areaCode NO-ERROR.
+       FIND FIRST tt-db WHERE tt-db.DATE = bills.bilDate AND tt-db.Vehicle = vehical.veh# 
+/*            AND tt-db.Area = area.areaCode */
+           NO-ERROR.
        IF NOT AVAILABLE tt-db THEN
        DO:
            CREATE tt-db.
             tt-db.DATE = bills.bilDate .
             tt-db.Vehicle = vehical.veh# .
-            tt-db.Area = area.areaCode.
+/*             tt-db.Area = area.areaCode. */
        END.
 
        FIND FIRST tt-dates WHERE tt-dates.DATE = bills.bilDate NO-ERROR.
