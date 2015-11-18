@@ -1,0 +1,95 @@
+ADD TABLE "Expense"
+  AREA "Schema Area"
+  DUMP-NAME "expense"
+
+ADD FIELD "Id" OF "Expense" AS integer 
+  FORMAT ">>>>>>>>9"
+  INITIAL "0"
+  LABEL "Id"
+  POSITION 2
+  MAX-WIDTH 4
+  COLUMN-LABEL "Id"
+  ORDER 10
+
+ADD FIELD "Date" OF "Expense" AS datetime 
+  FORMAT "99/99/9999 HH:MM:SS.SSS"
+  INITIAL ?
+  LABEL "Date"
+  POSITION 4
+  MAX-WIDTH 8
+  COLUMN-LABEL "Date"
+  ORDER 30
+
+ADD FIELD "Amount" OF "Expense" AS decimal 
+  FORMAT ">>>,>>>9.99"
+  INITIAL "0"
+  LABEL "Amount"
+  POSITION 5
+  MAX-WIDTH 17
+  COLUMN-LABEL "Amount"
+  DECIMALS 2
+  ORDER 40
+
+ADD FIELD "Employee#" OF "Expense" AS integer 
+  FORMAT "9999"
+  INITIAL "0"
+  LABEL "Employee"
+  POSITION 6
+  MAX-WIDTH 4
+  COLUMN-LABEL "Employee"
+  ORDER 50
+
+ADD FIELD "ExpenseTypeId" OF "Expense" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Expense Type"
+  POSITION 7
+  MAX-WIDTH 4
+  COLUMN-LABEL "Expense Type"
+  ORDER 60
+
+ADD FIELD "Note" OF "Expense" AS character 
+  FORMAT "x(200)"
+  INITIAL ""
+  LABEL "Note"
+  POSITION 8
+  MAX-WIDTH 400
+  COLUMN-LABEL "Note"
+  ORDER 70
+
+ADD TABLE "ExpenseType"
+  AREA "Schema Area"
+  DUMP-NAME "expensetype"
+
+ADD FIELD "Id" OF "ExpenseType" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "ID"
+  POSITION 2
+  MAX-WIDTH 4
+  COLUMN-LABEL "ID"
+  ORDER 10
+
+ADD FIELD "Code" OF "ExpenseType" AS character 
+  FORMAT "x(8)"
+  INITIAL ""
+  LABEL "CODE"
+  POSITION 3
+  MAX-WIDTH 16
+  COLUMN-LABEL "CODE"
+  ORDER 20
+
+ADD FIELD "Description" OF "ExpenseType" AS character 
+  FORMAT "x(250)"
+  INITIAL ""
+  LABEL "Description"
+  POSITION 4
+  MAX-WIDTH 500
+  COLUMN-LABEL "Description"
+  ORDER 30
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000001682
