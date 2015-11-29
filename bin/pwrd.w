@@ -267,9 +267,10 @@ DO:
     DO:
         MESSAGE "Password saved successfully." VIEW-AS ALERT-BOX INFO BUTTONS OK.
         ASSIGN pwrd = ENCODE(fillPwrdNew2).
+        RELEASE emp.
         APPLY "WINDOW-CLOSE":U TO {&WINDOW-NAME}.
-        RUN logger.r("Password changed to" + STRING(ENCODE(fillPwrdNew2))).
-        RUN VALUE("menu.r").
+/*         RUN logger.r("Password changed to" + STRING(ENCODE(fillPwrdNew2))). */
+        RUN VALUE("tree.r").
         QUIT.
     END.
     ELSE
@@ -334,7 +335,6 @@ ON RETURN OF fillPwrdNew2 IN FRAME DEFAULT-FRAME /* Repeat Password */
 DO:
     ASSIGN fillPwrdNew2.
     APPLY "CHOOSE":U TO btnLogin.
-
 END.
 
 /* _UIB-CODE-BLOCK-END */

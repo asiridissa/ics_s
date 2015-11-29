@@ -53,25 +53,21 @@ No|Product|Weight|Van C|Van P|Stock C|Stock P|Total P|Buying Price|Amount|Sellin
 52|Double Cream - Strawbery - 12/26/2013|.11|
 53|Double Cream- Chocolate - 12/26/2013|.11|
 54|White Chocolate Puff - 03/24/2014|.2|
-55|Yo yo chocolate - 01/05/2015|.055|
-56|Yo yo Lemon - 01/05/2015|.055|
-57|Yo yo Venila - 01/05/2015|.055|
-58|Light Mari - 01/05/2015|.065|
-59|Light Max - 01/05/2015|.26|
-60|Orange Cream - 04/02/2015|.4|
-61|Custard Cream - 04/02/2015|.4|
-62|Wafers-chocolate - 04/02/2015|.4|
-63|Wafers-vanila - 04/02/2015|.4|
-64|Chocolate Marie - 04/02/2015|.08|
-65|Biscuit Assortment - 04/02/2015|.5|
-66|Chocolate Marie - 05/01/2015|.32|
-67|Choco Sorties - 07/15/2015|.325|
-68|YoYo Chocolate - 07/29/2015|.26|
-69|YoYo Vanila - 07/29/2015|.26|
-70|New Nice - 08/19/2015|.435|
-71|Cream Cracker - 09/22/2015|.25|
-72|Cream Cracker - 09/25/2015|.85|
-73|Cream Cracker - 09/25/2015|.085|
-74|GoID marie - 11/03/2015|1.7|
-75|Real temptation - 11/13/2015|.09|
+55|Light Mari - 01/05/2015|.065|
+56|Light Max - 01/05/2015|.26|
+57|Orange Cream - 04/02/2015|.4|
+58|Custard Cream - 04/02/2015|.4|
+59|Wafers-chocolate - 04/02/2015|.4|
+60|Wafers-vanila - 04/02/2015|.4|
+61|Chocolate Marie - 04/02/2015|.08|
+62|Biscuit Assortment - 04/02/2015|.5|
+63|Chocolate Marie - 05/01/2015|.32|
+64|Choco Sorties - 07/15/2015|.325|
+65|YoYo Vanila - 07/29/2015|.26|
+66|New Nice - 08/19/2015|.435|
+67|Cream Cracker - 09/22/2015|.25|
+68|Cream Cracker - 09/25/2015|.85|
+69|Cream Cracker - 09/25/2015|.085|
+70|GoID marie - 11/03/2015|1.7|
+71|Real temptation - 11/13/2015|.09|
 |Total|
